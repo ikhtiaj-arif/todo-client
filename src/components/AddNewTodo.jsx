@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "react-clock/dist/Clock.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -15,9 +15,11 @@ import {
 
 import { toast } from "react-hot-toast";
 
+import { AuthContext } from "../context/userContext";
 import Modal from "./Modal";
 
 const AddNewTodo = () => {
+  const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState();
 
   const [title, setTitle] = useState("");
@@ -30,8 +32,9 @@ const AddNewTodo = () => {
     time,
     title,
     text,
+    email: user?.email,
   };
-  console.log(todo);
+  console.log(user);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -8,9 +8,33 @@ const TaskUpdate = () => {
   console.log(todo);
   const [newText, setNewText] = useState();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const updateDoc = { text: newText };
+    console.log(updateDoc);
+    const url = `http://localhost:5000/todos?email=${todo?._id}`;
+    // fetch(url, {
+    //   method: "PUT",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(updateDoc),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     // save token to local storage
+    //     toast.success("Update Successfull");
+    //   })
+    //   .catch((e) => toast.error(e.message));
+  };
+
   return (
     <div className="h-screen w-[350px] mx-auto md:w-[500px] lg:w-[700px] p-5 bg-gray-800">
-      <form className="relative w-[350px] md:w-[500px] mx-auto p-5 rounded-md bg-white outline-none">
+      <form
+        onSubmit={handleSubmit}
+        className="relative w-[350px] md:w-[500px] mx-auto p-5 rounded-md bg-white outline-none"
+      >
         <div className="text">
           <h3 className="font-medium text-2xl text-gray-600">Update Todo!</h3>
           <div>
@@ -25,8 +49,9 @@ const TaskUpdate = () => {
           <textarea
             className="w-full py-[1rem] px-1 text-gray-500 bg-white border-none"
             type="text"
-            defaultValue={todo.details}
-            placeholder={todo.details}
+            defaultValue={todo.text}
+            placeholder={todo.text}
+            autoFocus
             onChange={(e) => setNewText(e.target.value)}
           />
         </div>
@@ -34,7 +59,7 @@ const TaskUpdate = () => {
         <div className="px-[1rem] py-2 border-b-2">
           <div className="flex items-center text-gray-500 font-medium">
             <FaCalendarAlt className="text-lg mr-[8px]" />
-            <p>{state.date}</p>
+            <p>{todo.day}</p>
           </div>
         </div>
 
@@ -66,7 +91,7 @@ const TaskUpdate = () => {
 
         <div className="bg-tertiary absolute left-0 mt-[-20px] rounded-b-md h-[3rem] w-full flex items-center justify-center">
           <FaPlus className="text-lg text-cyan-500 mr-[8px]" />
-          <button> Update The Todo</button>
+          <button type="submit"> Update The Todo</button>
         </div>
       </form>
     </div>
