@@ -13,6 +13,8 @@ import {
   FaPlus,
 } from "react-icons/fa";
 
+import { toast } from "react-hot-toast";
+
 import Modal from "./Modal";
 
 const AddNewTodo = () => {
@@ -22,7 +24,36 @@ const AddNewTodo = () => {
   const [text, setText] = useState("");
   const [day, setDay] = useState(new Date());
   const [time, setTime] = useState(new Date());
-  console.log(day);
+
+  const todo = {
+    day,
+    time,
+    title,
+    text,
+  };
+  console.log(todo);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch("http://localhost:5000/todo", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `bearer ${localStorage.getItem("todo-user-token")}`,
+      },
+      body: JSON.stringify(todo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        if (data.acknowledged) {
+          toast.success("Todo Successfully confirmed!");
+        }
+      })
+      .catch((e) => toast.error(e.message));
+    e.target.reset();
+  };
 
   return (
     <div className="AddNewTodo">
@@ -31,7 +62,10 @@ const AddNewTodo = () => {
       </div>
 
       <Modal showModal={showModal} setShowModla={setShowModal}>
-        <form className="w-[350px] md:w-[500px] p-5 rounded-md bg-white outline-none">
+        <form
+          onSubmit={handleSubmit}
+          className="w-[350px] md:w-[500px] p-5 rounded-md bg-white outline-none"
+        >
           <div className="text">
             <h3 className="font-medium text-2xl text-gray-600">
               Add New Todo!
@@ -40,7 +74,8 @@ const AddNewTodo = () => {
               <input
                 type="text"
                 className="w-full  px-1 bg-white border-b-2 mt-2 my-1"
-                value={title}
+                name="title"
+                autoFocus
                 placeholder="Todo Title"
                 onChange={(e) => setTitle(e.target.value)}
               />
@@ -48,7 +83,7 @@ const AddNewTodo = () => {
             <input
               className="w-full py-[1rem] px-1 bg-white border-none"
               type="text"
-              value={text}
+              name="details"
               placeholder="todo..."
               onChange={(e) => setText(e.target.value)}
             />
@@ -67,6 +102,7 @@ const AddNewTodo = () => {
             <DatePicker
               className="bg-white "
               selected={day}
+              name="date"
               onChange={(day) => setDay(day)}
             />
           </div>
@@ -79,6 +115,7 @@ const AddNewTodo = () => {
             <TimePicker
               className="bg-white outline-none"
               value={time}
+              name="time"
               onChange={(time) => setTime(time)}
             />
           </div>
@@ -109,7 +146,7 @@ const AddNewTodo = () => {
           </div>
           <div className="bg-tertiary absolute left-0 mt-[-20px] rounded-b-md h-[3rem] w-full flex items-center justify-center">
             <FaPlus className="text-lg text-cyan-500 mr-[8px]" />
-            <button> Add The Todo</button>
+            <button type="submit"> Add The Todo</button>
           </div>
         </form>
       </Modal>

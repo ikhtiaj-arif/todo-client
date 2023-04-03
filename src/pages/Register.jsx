@@ -3,10 +3,17 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import img from "../assects/login.svg";
 import { AuthContext } from "../context/userContext";
+import { setAuthToken } from "../hooks/Auth";
 
 const Register = () => {
-  const { createUser, updateUserName, googleLogin, setUser, logOutUser } =
-    useContext(AuthContext);
+  const {
+    createUser,
+    updateUserName,
+    googleLogin,
+    setUser,
+    setLoading,
+    logOutUser,
+  } = useContext(AuthContext);
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -19,7 +26,14 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         setName(name);
-        console.log(user);
+
+        const userData = {
+          uid: user?.uid,
+          email: user?.email,
+        };
+        // console.log(userData);
+        setAuthToken(userData);
+        setLoading(false);
         toast.success("Account Created!");
       })
       .catch((e) => toast.error(e.message));
