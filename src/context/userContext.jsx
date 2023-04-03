@@ -61,7 +61,8 @@ const UserContext = ({ children }) => {
     googleLogin,
     logOutUser,
   };
-  return <AuthContext.Provider value={info}>{children}</AuthContext.Provider>;
+  const x = { name: "xxx" };
+  return <AuthContext.Provider value={x}>{children}</AuthContext.Provider>;
 };
 
 export default UserContext;
