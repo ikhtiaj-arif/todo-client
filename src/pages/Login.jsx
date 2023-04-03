@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import img from "../assects/login.svg";
 import { AuthContext } from "../context/userContext";
 
 const Login = () => {
-  const { logInUser, setUser } = useContext(AuthContext);
-
+  const { logInUser, setUser, user } = useContext(AuthContext);
+  console.log(user);
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -15,8 +16,9 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
+        toast.success("LogIn Successfull!");
       })
-      .catch((e) => console.log(e));
+      .catch((e) => toast.error(e.message));
   };
 
   return (
@@ -62,9 +64,9 @@ const Login = () => {
             </div>
           </form>
           <p className="text-center my-12">
-            New To Genius Car ?{" "}
-            <Link to="/signup" className="text-orange-600 font-bold">
-              SignUp
+            Don't Have An Account Yet?{" "}
+            <Link to="/register" className="text-red-600 font-bold">
+              Register
             </Link>
           </p>
         </div>

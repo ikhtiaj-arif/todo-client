@@ -6,7 +6,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
+
 import React, { createContext, useEffect, useState } from "react";
 import app from "../firebase_config";
 
@@ -22,6 +24,11 @@ const UserContext = ({ children }) => {
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const updateUserName = (name) => {
+    setLoading(true);
+    return updateProfile(auth.currentUser, name);
   };
 
   const logInUser = (email, password) => {
@@ -57,12 +64,12 @@ const UserContext = ({ children }) => {
     loading,
     setLoading,
     createUser,
+    updateUserName,
     logInUser,
     googleLogin,
     logOutUser,
   };
-  const x = { name: "xxx" };
-  return <AuthContext.Provider value={x}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={info}>{children}</AuthContext.Provider>;
 };
 
 export default UserContext;
