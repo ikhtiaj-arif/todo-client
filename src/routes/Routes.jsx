@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../components/Home";
+import Sidebar from "../components/Sidebar";
+import TaskUpdate from "../components/TaskUpdate";
 import MainPage from "../layouts/MainPage";
 import About from "../pages/About";
 
@@ -14,7 +15,7 @@ const Routes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Sidebar />,
       },
       {
         path: "/about",
@@ -27,6 +28,10 @@ const Routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/task/:id",
+        element: <TaskUpdate />,
       },
     ],
   },
