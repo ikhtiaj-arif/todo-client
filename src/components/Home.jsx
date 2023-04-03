@@ -1,9 +1,10 @@
 import React from "react";
+import AddNewTodo from "./AddNewTodo";
 
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
+    <div className="h-screen">
+      <AddNewTodo />
     </div>
   );
 };
