@@ -11,7 +11,7 @@ const Modal = ({ children, showModal, setShowModla }) => {
   return (
     showModal && (
       <div className="Modal" ref={modalRef} onClick={closeModal}>
-        <div className="absolute p-5 rounded-xl bg-[#fef2f2] top-[25%] left-[50%] translate-x-[-50%] translate-y-[-25%]">
+        <div className="absolute top-[25%] left-[50%] translate-x-[-50%] translate-y-[-25%]">
           {children}
         </div>
       </div>
