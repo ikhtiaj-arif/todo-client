@@ -1,8 +1,8 @@
-# Getting Started with Create React App
+# A MERN stack Todo App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is deployed to ((https://todo-e5191.web.app/)).
 
-## Available Scripts
+## 
 
 In the project directory, you can run:
 
