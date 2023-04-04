@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../assects/login.svg";
 import { AuthContext } from "../context/userContext";
 
 const Login = () => {
   const { logInUser, setUser, user, googleLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
   console.log(user);
   const handleLogin = (event) => {
     event.preventDefault();
@@ -17,6 +18,7 @@ const Login = () => {
         const user = result.user;
         setUser(user);
         toast.success("LogIn Successfull!");
+        navigate("/todos");
       })
       .catch((e) => toast.error(e.message));
   };
@@ -27,6 +29,7 @@ const Login = () => {
         const user = result.user;
         setUser(user);
         toast.success("Account Created!");
+        navigate("/todos");
       })
       .catch((e) => toast.error(e.message));
   };

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../assects/login.svg";
 import { AuthContext } from "../context/userContext";
 import { setAuthToken } from "../hooks/Auth";
@@ -14,6 +14,7 @@ const Register = () => {
     setLoading,
     logOutUser,
   } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -35,6 +36,7 @@ const Register = () => {
         setAuthToken(userData);
         setLoading(false);
         toast.success("Account Created!");
+        navigate("/todos");
       })
       .catch((e) => toast.error(e.message));
   };
@@ -54,6 +56,7 @@ const Register = () => {
         const user = result.user;
         setUser(user);
         toast.success("Account Created!");
+        navigate("/todos");
       })
       .catch((e) => toast.error(e.message));
   };
