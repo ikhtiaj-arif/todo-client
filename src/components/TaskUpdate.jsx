@@ -14,7 +14,7 @@ const TaskUpdate = () => {
     e.preventDefault();
     const updateDoc = { text: newText };
     console.log(updateDoc);
-    const url = `http://localhost:5000/todo/${todo?._id}`;
+    const url = `https://todo-server-lake.vercel.app/todo/${todo?._id}`;
     fetch(url, {
       method: "PUT",
       headers: {
@@ -26,8 +26,8 @@ const TaskUpdate = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          toast.success("Advertised");
-          navigate("/");
+          toast.success("Updated!");
+          navigate("/todos");
         }
       })
       .catch((e) => toast.error(e.message));

@@ -17,7 +17,7 @@ const Test = () => {
   };
   //   console.log(user.email);
 
-  const url = `http://localhost:5000/todos?email=${user?.email}`;
+  const url = `https://todo-server-lake.vercel.app/todos?email=${user?.email}`;
   const {
     data: tasks = [],
     isLoading,
@@ -44,7 +44,7 @@ const Test = () => {
 
   // useEffect(() => {
   //   console.log(user.email);
-  //   fetch(`http://localhost:5000/todos?email=${user?.email}`, {
+  //   fetch(`https://todo-server-lake.vercel.app/todos?email=${user?.email}`, {
   //     headers: {
   //       "content-type": "application/json",
   //       authorization: `bearer ${localStorage.getItem("todo-user-token")}`,

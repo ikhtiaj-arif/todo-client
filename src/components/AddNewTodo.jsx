@@ -44,7 +44,7 @@ const AddNewTodo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:5000/todo", {
+    fetch("https://todo-server-lake.vercel.app/todo", {
       method: "POST",
       headers: {
         "content-type": "application/json",

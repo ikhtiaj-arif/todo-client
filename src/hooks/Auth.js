@@ -1,7 +1,7 @@
 export const setAuthToken = (userData) => {
     // https://server-angon777.vercel.app
     // save user in db and get token
-    fetch(`http://localhost:5000/users/${userData?.email}`, {
+    fetch(`https://todo-server-lake.vercel.app/users/${userData?.email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -18,7 +18,7 @@ export const setAuthToken = (userData) => {
   
 // get user 
   export const getUserInfo = async (email) => {
-    const url = `http://localhost:5000/users/${email}`;
+    const url = `https://todo-server-lake.vercel.app/users/${email}`;
     const res = await fetch(url, {
       headers: {
         authorization: `bearer ${localStorage.getItem("todo-user-token")}`,

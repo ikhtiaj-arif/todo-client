@@ -23,7 +23,7 @@ const PEndingTasks = () => {
   };
   //   console.log(user.email);
 
-  const url = `http://localhost:5000/todos?email=${user?.email}`;
+  const url = `https://todo-server-lake.vercel.app/todos?email=${user?.email}`;
   const {
     data: tasks = [],
     isLoading,
@@ -43,7 +43,7 @@ const PEndingTasks = () => {
   });
 
   const handleTodoDelete = (task) => {
-    const url = `http://localhost:5000/todo/${task._id}`;
+    const url = `https://todo-server-lake.vercel.app/todo/${task._id}`;
     fetch(url, {
       method: "DELETE",
       headers: {
