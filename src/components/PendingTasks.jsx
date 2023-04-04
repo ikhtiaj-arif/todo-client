@@ -1,7 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
-import { FaRegCalendarAlt, FaTrash } from "react-icons/fa";
+import {
+  FaCalendarAlt,
+  FaRegCalendarAlt,
+  FaRegClock,
+  FaTrash,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/userContext";
 import ConfirmationModal from "./ConfirmationModal";
@@ -62,22 +67,34 @@ const PEndingTasks = () => {
     <div>
       <div className="my-3 flex items-center">
         <FaRegCalendarAlt className="mr-[8px] text-xl" />
-        <h2 className="text-white font-semibold text-xl">Pending</h2>
+        <h2 className="text-white font-semibold text-xl">Pending Tasks</h2>
       </div>
       {tasks.map((task, index) => (
         <div key={task.id + index} setDeleteDoc={task} setTodos={task}>
-          <div className="green-pink-gradient my-2 p-[1px] rounded-[5px]">
+          <div className=" my-3 p-[1px] rounded-[5px]">
             <div className="bg-tertiary  rounded-[5px]  p-4">
+              <h1 className="text-2xl text-gray-200 font-semibold">
+                {task.title}
+              </h1>
+              {task.category ? (
+                <>
+                  <h3>{task.category}</h3>
+                </>
+              ) : (
+                <></>
+              )}
               <div className="flex justify-between items-center">
-                <p className="blue-text-gradient ">{task.day}</p>
-                <h1 className="text-xl text-gray-200 font-semibold">
-                  {task.title}
-                </h1>
-
-                <p className="blue-text-gradient ">{task.time}</p>
+                <div className="flex items-center">
+                  <FaRegClock className="text-md  mr-2" />
+                  <p className="">{task.time}</p>
+                </div>
+                <div className="flex items-center">
+                  <FaCalendarAlt className="text-md mr-2" />
+                  <p className=" ">{task.day}</p>
+                </div>
               </div>
 
-              <p className="p-2 text-center">{task.text}</p>
+              <p className="py-2 text-white">{task.text}</p>
               <div className="flex justify-between items-center">
                 <div className="btn">
                   <Link to={`/task/${task.id}`} state={{ task }}>

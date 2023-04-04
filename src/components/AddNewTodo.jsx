@@ -26,17 +26,20 @@ const AddNewTodo = () => {
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [category, setCategory] = useState("Other");
+
   const [day, setDay] = useState(new Date());
   const [time, setTime] = useState(new Date());
 
   const todo = {
-    day,
-    time,
-    title,
-    text,
     email: user?.email,
+    title,
+    time,
+    day,
+    text,
+    category,
   };
-  console.log(user);
+  // console.log(user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -70,24 +73,24 @@ const AddNewTodo = () => {
       <Modal showModal={showModal} setShowModla={setShowModal}>
         <form
           onSubmit={handleSubmit}
-          className="w-[350px] md:w-[500px] p-5 rounded-md bg-white outline-none"
+          className="w-[350px] md:w-[500px] p-5 rounded-md bg-gray-100 outline-none"
         >
           <div className="text">
-            <h3 className="font-medium text-2xl text-gray-600">
+            <h3 className="font-medium text-2xl text-tertiary">
               Add New Todo!
             </h3>
             <div>
               <input
                 type="text"
-                className="w-full  px-1 bg-white border-b-2 mt-2 my-1"
+                className="w-full px-2 py-1 rounded-md bg-gray-200 text-tertiary border-b-2 mt-2 my-1"
                 name="title"
                 autoFocus
                 placeholder="Todo Title"
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
-            <input
-              className="w-full py-[1rem] px-1 bg-white border-none"
+            <textarea
+              className="w-full py-[1.2rem] text-tertiary px-2 bg-gray-200 border-none"
               type="text"
               name="details"
               placeholder="todo..."
@@ -95,31 +98,31 @@ const AddNewTodo = () => {
             />
           </div>
 
-          <div className="flex mt-1 mb-3 items-center text-gray-500 font-medium">
+          <div className="flex mt-1 mb-3 items-center text-tertiary font-medium">
             <FaBell className="text-lg mr-[8px]" />
             <p>remind me</p>
           </div>
 
           <div className="px-[1rem] py-2 border-b-2">
-            <div className="flex items-center text-gray-500 font-medium">
+            <div className="flex items-center text-tertiary font-medium">
               <FaCalendarAlt className="text-lg mr-[8px]" />
               <p>Chose A day</p>
             </div>
             <DatePicker
-              className="bg-white "
+              className="bg-gray-100 text-tertiary"
               selected={day}
               name="date"
               onChange={(day) => setDay(day)}
             />
           </div>
 
-          <div className="px-[1rem] py-2 border-b-2 text-gray-500 font-medium">
+          <div className="px-[1rem] py-2 border-b-2 text-tertiary font-medium">
             <div className="flex items-center">
               <FaClock className="text-lg mr-[8px]" />
               <p>Chose A time</p>
             </div>
             <TimePicker
-              className="bg-white outline-none"
+              className="bg-gray-100 text-tertiary outline-none"
               value={time}
               name="time"
               onChange={(time) => setTime(time)}
@@ -127,19 +130,45 @@ const AddNewTodo = () => {
           </div>
 
           <div className="mt-3 mb-8">
-            <div className="flex items-center text-gray-500 font-medium py-3">
+            <div className="flex items-center text-tertiary font-medium py-3">
               <FaPallet className="text-lg mr-[8px]" />
               <p>Choose A Category</p>
             </div>
             <div className="flex flex-wrap gap-2">
-              <div className=" green-pink-gradient p-[1px] rounded-[10px] shadow-card">
-                <div className="bg-white text-gray-600 rounded-[10px] hover:bg-tertiary hover:text-white cursor-pointer py-2 px-5 flex justify-center">
+              <div className=" green-pink-gradient p-[1px] rounded-[10px] shadow-card ">
+                <div
+                  onClick={() => setCategory("Personal")}
+                  className={`rounded-[10px] hover:bg-tertiary hover:text-white cursor-pointer py-2 px-5 flex justify-center  ${
+                    category === "Personal"
+                      ? "bg-tertiary text-white"
+                      : "bg-gray-100 text-tertiary "
+                  }`}
+                >
                   Personal
                 </div>
               </div>
-              <div className=" green-pink-gradient p-[1px] rounded-[10px] shadow-card">
-                <div className="bg-white text-gray-600 rounded-[10px] py-2 px-5 flex justify-center">
+              <div className=" green-pink-gradient p-[1px] rounded-[10px] shadow-card ">
+                <div
+                  onClick={() => setCategory("Work")}
+                  className={`rounded-[10px] hover:bg-tertiary hover:text-white cursor-pointer py-2 px-5 flex justify-center  ${
+                    category === "Work"
+                      ? "bg-tertiary text-white"
+                      : "bg-gray-100 text-tertiary "
+                  }`}
+                >
                   Work
+                </div>
+              </div>
+              <div className=" green-pink-gradient p-[1px] rounded-[10px] shadow-card ">
+                <div
+                  onClick={() => setCategory("Other")}
+                  className={`rounded-[10px] hover:bg-tertiary hover:text-white cursor-pointer py-2 px-5 flex justify-center  ${
+                    category === "Other"
+                      ? "bg-tertiary text-white"
+                      : "bg-gray-100 text-tertiary "
+                  }`}
+                >
+                  Other
                 </div>
               </div>
             </div>
@@ -150,10 +179,13 @@ const AddNewTodo = () => {
           >
             <FaBan />
           </div>
-          <div className="bg-tertiary absolute left-0 mt-[-20px] rounded-b-md h-[3rem] w-full flex items-center justify-center">
-            <FaPlus className="text-lg text-cyan-500 mr-[8px]" />
-            <button type="submit"> Add The Todo</button>
-          </div>
+
+          <button
+            type="submit"
+            className="font-bold text-gray-100 bg-tertiary absolute left-0 mt-[-20px] rounded-b-md h-[3rem] w-full flex items-center justify-center"
+          >
+            <FaPlus className="text-lg text-cyan-400 mr-[8px]" /> Add The Todo
+          </button>
         </form>
       </Modal>
     </div>
