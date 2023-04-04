@@ -5,8 +5,8 @@ This project is deployed to ((https://todo-e5191.web.app/)).
 
 
 ### ` feathers`
-** User Authentication using Firebase & JWT
-** Custom Hooks & Custom Components for reusibility.
+$ User Authentication using Firebase & JWT
+$ Custom Hooks & Custom Components for reusibility.
 ** Private Routes for user access and protection
 ** Context API to share data among components
 ** React Query for data fetching and rerendaring.
