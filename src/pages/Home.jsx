@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import hero from "../assects/hero.svg";
 
 const Home = () => {
@@ -23,20 +24,20 @@ const Home = () => {
             or, log in if you have an account
           </p>
           <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-            <a
-              rel="noopener noreferrer"
+            <Link
+              to="/register"
               href="#"
               className="px-8 py-3 text-lg font-semibold rounded dark:bg-violet-400 dark:text-gray-900"
             >
               Register
-            </a>
-            <a
-              rel="noopener noreferrer"
+            </Link>
+            <Link
+              to="/login"
               href="#"
               className="px-8 py-3 text-lg font-semibold border rounded dark:border-gray-100"
             >
               Login
-            </a>
+            </Link>
           </div>
         </div>
       </div>

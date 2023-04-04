@@ -1,5 +1,6 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
+import Error from "../components/Error";
 import Sidebar from "../components/Sidebar";
 import TaskUpdate from "../components/TaskUpdate";
 import MainPage from "../layouts/MainPage";
@@ -8,11 +9,13 @@ import Home from "../pages/Home";
 
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import PrivateRoute from "./PrivateRoute";
 
 const Routes = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -34,11 +37,19 @@ const Routes = createBrowserRouter([
       // private
       {
         path: "/todos",
-        element: <Sidebar />,
+        element: (
+          <PrivateRoute>
+            <Sidebar />,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/task/:id",
-        element: <TaskUpdate />,
+        element: (
+          <PrivateRoute>
+            <TaskUpdate />,
+          </PrivateRoute>
+        ),
       },
     ],
   },

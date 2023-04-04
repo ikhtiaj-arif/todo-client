@@ -19,13 +19,20 @@ const Nav = () => {
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>All Todos</a>
-          </li>
+          {user && user?.uid ? (
+            <li>
+              <Link to="/todos">All Todos</Link>
+            </li>
+          ) : (
+            <li></li>
+          )}
 
           <li>
             {user ? (
-              <button className="btn btn-primary" onClick={handleLogout}>
+              <button
+                className="btn bg-violet-500 text-white"
+                onClick={handleLogout}
+              >
                 Logout
               </button>
             ) : (

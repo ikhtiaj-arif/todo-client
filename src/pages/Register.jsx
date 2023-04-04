@@ -59,7 +59,7 @@ const Register = () => {
   };
 
   return (
-    <div className="hero w-full my-20 min-h-screen ">
+    <div className="hero w-full lg:w-3/4 mx-auto my-20  ">
       <div className=" grid md:grid-cols-2 gap-20">
         <div className="">
           <img src={img} alt="" />
@@ -96,7 +96,7 @@ const Register = () => {
                 <span className="label-text font-bold">Password</span>
               </label>
               <input
-                type="text"
+                type="password"
                 name="password"
                 placeholder="password"
                 className="input input-bordered"
@@ -109,18 +109,22 @@ const Register = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <input className="btn btn-accent" type="submit" value="SignUp" />
+              <input
+                className="btn bg-violet-400 text-white"
+                type="submit"
+                value="SignUp"
+              />
             </div>
+            <button className="btn text-white" onClick={handleGoogleLogin}>
+              Google SignIn
+            </button>
           </form>
-          <p className="text-center my-12">
+          <p className="text-center mb-5">
             Have An Account?{" "}
-            <Link to="/login" className="text-red-600 font-bold">
+            <Link to="/login" className="text-accent font-bold">
               login
             </Link>
           </p>
-          <button onClick={handleGoogleLogin} className="">
-            Google SignIn
-          </button>
         </div>
       </div>
     </div>

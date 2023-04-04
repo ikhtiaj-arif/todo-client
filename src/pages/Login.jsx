@@ -5,7 +5,7 @@ import img from "../assects/login.svg";
 import { AuthContext } from "../context/userContext";
 
 const Login = () => {
-  const { logInUser, setUser, user } = useContext(AuthContext);
+  const { logInUser, setUser, user, googleLogin } = useContext(AuthContext);
   console.log(user);
   const handleLogin = (event) => {
     event.preventDefault();
@@ -21,8 +21,18 @@ const Login = () => {
       .catch((e) => toast.error(e.message));
   };
 
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        toast.success("Account Created!");
+      })
+      .catch((e) => toast.error(e.message));
+  };
+
   return (
-    <div className="hero w-full my-20 min-h-screen ">
+    <div className="hero w-full lg:w-3/4 mx-auto my-20  ">
       <div className=" grid md:grid-cols-2 gap-20">
         <div className="">
           <img src={img} alt="" />
@@ -47,7 +57,7 @@ const Login = () => {
                 <span className="label-text font-bold">Password</span>
               </label>
               <input
-                type="text"
+                type="password"
                 name="password"
                 placeholder="password"
                 className="input input-bordered"
@@ -60,12 +70,19 @@ const Login = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <input className="btn btn-accent" type="submit" value="Login" />
+              <input
+                className="btn bg-violet-400 text-white"
+                type="submit"
+                value="Login"
+              />
             </div>
+            <button className="btn  text-white" onClick={handleGoogleLogin}>
+              Google SignIn
+            </button>
           </form>
-          <p className="text-center my-12">
+          <p className="text-center mb-5">
             Don't Have An Account Yet?{" "}
-            <Link to="/register" className="text-red-600 font-bold">
+            <Link to="/register" className="text-accent font-bold">
               Register
             </Link>
           </p>
