@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext, useState } from "react";
 import { FaRegCalendarAlt, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/userContext";
@@ -6,7 +7,7 @@ import ConfirmationModal from "./ConfirmationModal";
 
 const Test = () => {
   const { user } = useContext(AuthContext);
-  const [tasks, setTasks] = useState();
+  // const [tasks, setTasks] = useState();
   const [showModal, setShowModal] = useState();
   const [loading, setLoading] = useState(true);
 
@@ -17,50 +18,50 @@ const Test = () => {
   //   console.log(user.email);
 
   const url = `http://localhost:5000/todos?email=${user?.email}`;
-  //   const {
-  //     data: tasks = [],
-  //     isLoading,
-  //     refetch,
-  //   } = useQuery({
-  //     queryKey: ["Todos"],
-  //     queryFn: async () => {
-  //       const res = await fetch(url, {
-  //         headers: {
-  //           authorization: `bearer ${localStorage.getItem("todo-user-token")}`,
-  //         },
-  //       });
-  //       const data = await res.json();
-  //       refetch();
+  const {
+    data: tasks = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["Todos", user?.email],
+    queryFn: async () => {
+      const res = await fetch(url, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("todo-user-token")}`,
+        },
+      });
+      const data = res.json();
+      refetch();
 
-  //       return data;
-  //     },
-  //   });
-  //   console.log(tasks);
+      return data;
+    },
+  });
+  console.log(tasks);
 
   const handleTodoDelete = (id) => {
     console.log("deleted", id);
   };
 
-  useEffect(() => {
-    console.log(user.email);
-    fetch(`http://localhost:5000/todos?email=${user?.email}`, {
-      headers: {
-        "content-type": "application/json",
-        authorization: `bearer ${localStorage.getItem("todo-user-token")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("data", data);
-        setTasks(data);
-        setLoading(false);
-      })
-      .catch((e) => console.log(e));
-  }, [user?.email]);
+  // useEffect(() => {
+  //   console.log(user.email);
+  //   fetch(`http://localhost:5000/todos?email=${user?.email}`, {
+  //     headers: {
+  //       "content-type": "application/json",
+  //       authorization: `bearer ${localStorage.getItem("todo-user-token")}`,
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log("data", data);
+  //       setTasks(data);
+  //       setLoading(false);
+  //     })
+  //     .catch((e) => console.log(e));
+  // }, [user?.email]);
 
   //   }
 
-  if (loading) {
+  if (isLoading) {
     return <>loading...</>;
   }
   return (

@@ -1,32 +1,36 @@
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { FaCalendarAlt, FaClock, FaPallet, FaPlus } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const TaskUpdate = () => {
   const state = useLocation();
   const todo = state?.state?.task;
   console.log(todo);
   const [newText, setNewText] = useState();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const updateDoc = { text: newText };
     console.log(updateDoc);
-    const url = `http://localhost:5000/todos?email=${todo?._id}`;
-    // fetch(url, {
-    //   method: "PUT",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(updateDoc),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     // save token to local storage
-    //     toast.success("Update Successfull");
-    //   })
-    //   .catch((e) => toast.error(e.message));
+    const url = `http://localhost:5000/todo/${todo?._id}`;
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        authorization: `bearer ${localStorage.getItem("todo-user-token")}`,
+      },
+      body: JSON.stringify(updateDoc),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Advertised");
+          navigate("/");
+        }
+      })
+      .catch((e) => toast.error(e.message));
   };
 
   return (

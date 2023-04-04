@@ -15,12 +15,14 @@ import {
 
 import { toast } from "react-hot-toast";
 
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/userContext";
 import Modal from "./Modal";
 
 const AddNewTodo = () => {
   const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState();
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -52,10 +54,11 @@ const AddNewTodo = () => {
         // console.log(data);
         if (data.acknowledged) {
           toast.success("Todo Successfully confirmed!");
+          setShowModal(false);
+          window.location.reload();
         }
       })
       .catch((e) => toast.error(e.message));
-    e.target.reset();
   };
 
   return (

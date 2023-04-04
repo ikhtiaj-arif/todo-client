@@ -1,62 +1,62 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
+import { toast } from "react-hot-toast";
 import { FaRegCalendarAlt, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/userContext";
 import ConfirmationModal from "./ConfirmationModal";
 
-const PendingTasks = () => {
-  const { user, loading } = useContext(AuthContext);
-
+const PEndingTasks = () => {
+  const { user } = useContext(AuthContext);
+  // const [tasks, setTasks] = useState();
   const [showModal, setShowModal] = useState();
+  const [loading, setLoading] = useState(true);
 
   const [deleteDoc, setDeleteDoc] = useState(null);
   const closeModal = () => {
     setDeleteDoc(null);
   };
-  console.log(user);
-  const url = `http://localhost:5000/todos?email=tomato@cruise.com`;
+  //   console.log(user.email);
+
+  const url = `http://localhost:5000/todos?email=${user?.email}`;
   const {
     data: tasks = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["Todos"],
+    queryKey: ["Todos", user?.email],
     queryFn: async () => {
       const res = await fetch(url, {
         headers: {
           authorization: `bearer ${localStorage.getItem("todo-user-token")}`,
         },
       });
-      const data = await res.json();
-      refetch();
+      const data = res.json();
+
       return data;
     },
   });
-  console.log(tasks);
 
-  const handleTodoDelete = (id) => {
-    console.log("deleted", id);
+  const handleTodoDelete = (task) => {
+    const url = `http://localhost:5000/todo/${task._id}`;
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("todo-user-token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        if (data.deletedCount > 0) {
+          toast.success(`Successfully Deleted!`);
+          refetch();
+        }
+      });
   };
-  // useState(() => {
-  //   console.log(user.email);
-  //   fetch(`http://localhost:5000/todos?email=${user?.email}`, {
-  //     headers: {
-  //       "content-type": "application/json",
-  //       authorization: `bearer ${localStorage.getItem("todo-user-token")}`,
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log("data", data);
-  //       setTasks(data);
-  //       setLoading(false);
-  //     })
-  //     .catch((e) => console.log(e));
-  // }, [user?.email]);
 
-  if (isLoading && loading) {
-    return <>loading</>;
+  if (isLoading) {
+    return <>loading...</>;
   }
   return (
     <div>
@@ -109,4 +109,4 @@ const PendingTasks = () => {
   );
 };
 
-export default PendingTasks;
+export default PEndingTasks;
