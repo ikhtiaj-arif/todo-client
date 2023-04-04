@@ -34,24 +34,24 @@ const TaskUpdate = () => {
   };
 
   return (
-    <div className="h-screen w-[350px] mx-auto md:w-[500px] lg:w-[700px] p-5 bg-gray-800">
+    <div className="h-screen w-[450px] mx-auto md:w-[600px] lg:w-[700px] p-5 bg-gray-800">
       <form
         onSubmit={handleSubmit}
-        className="relative w-[350px] md:w-[500px] mx-auto p-5 rounded-md bg-white outline-none"
+        className="relative w-[400px] md:w-[500px] mx-auto p-5 rounded-md bg-gray-100 outline-none"
       >
         <div className="text">
-          <h3 className="font-medium text-2xl text-gray-600">Update Todo!</h3>
+          <h3 className="font-medium text-2xl text-tertiary">Update Todo!</h3>
           <div>
             <input
               type="text"
-              className="w-full  px-1 text-gray-500 bg-white border-b-2 mt-2 my-1"
+              className="w-full px-2 py-1 rounded-md bg-gray-200 text-tertiary border-b-2 mt-2 my-1"
               defaultValue={todo.title}
               placeholder="Todo Title"
               disabled
             />
           </div>
           <textarea
-            className="w-full py-[1rem] px-1 text-gray-500 bg-white border-none"
+            className="w-full py-[1.2rem] text-tertiary px-2 bg-gray-200 border-none rounded-md"
             type="text"
             defaultValue={todo.text}
             placeholder={todo.text}
@@ -61,33 +61,33 @@ const TaskUpdate = () => {
         </div>
 
         <div className="px-[1rem] py-2 border-b-2">
-          <div className="flex items-center text-gray-500 font-medium">
+          <div className="flex items-center text-tertiary font-medium">
             <FaCalendarAlt className="text-lg mr-[8px]" />
             <p>{todo.day}</p>
           </div>
         </div>
 
         <div className="px-[1rem] py-2 border-b-2 text-gray-500 font-medium">
-          <div className="flex items-center">
+          <div className="flex items-center text-tertiary font-medium">
             <FaClock className="text-lg mr-[8px]" />
             <p>{todo.time}</p>
           </div>
         </div>
 
         <div className="mt-3 mb-8">
-          <div className="flex items-center text-gray-500 font-medium py-3">
+          <div className="flex items-center text-tertiary font-medium py-3">
             <FaPallet className="text-lg mr-[8px]" />
-            <p>Choose A Category</p>
+            <p> Category</p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <div className=" green-pink-gradient p-[1px] rounded-[10px] shadow-card">
-              <div className="bg-white text-gray-600 rounded-[10px] hover:bg-tertiary hover:text-white cursor-pointer py-2 px-5 flex justify-center">
-                Personal
-              </div>
-            </div>
-            <div className=" green-pink-gradient p-[1px] rounded-[10px] shadow-card">
-              <div className="bg-white text-gray-600 rounded-[10px] py-2 px-5 flex justify-center">
-                Work
+            <div className=" green-pink-gradient p-[1px] rounded-[10px] shadow-card ">
+              <div
+                className={`rounded-[10px] cursor-pointer py-2 px-5 flex justify-center  
+                  
+                     bg-gray-100 text-tertiary 
+                `}
+              >
+                {todo.category}
               </div>
             </div>
           </div>

@@ -65,12 +65,12 @@ const PEndingTasks = () => {
   }
   return (
     <div>
-      <div className="my-3 flex items-center">
-        <FaRegCalendarAlt className="mr-[8px] text-xl" />
+      <div className="my-3 mt-5  flex items-center">
+        <FaRegCalendarAlt className="mr-[8px]  text-xl" />
         <h2 className="text-white font-semibold text-xl">Pending Tasks</h2>
       </div>
       {tasks.map((task, index) => (
-        <div key={task.id + index} setDeleteDoc={task} setTodos={task}>
+        <div key={task._id + index} setDeleteDoc={task} setTodos={task}>
           <div className=" my-3 p-[1px] rounded-[5px]">
             <div className="bg-tertiary  rounded-[5px]  p-4">
               <h1 className="text-2xl text-gray-200 font-semibold">
@@ -96,20 +96,21 @@ const PEndingTasks = () => {
 
               <p className="py-2 text-white">{task.text}</p>
               <div className="flex justify-between items-center">
-                <div className="btn">
-                  <Link to={`/task/${task.id}`} state={{ task }}>
-                    Update
-                  </Link>
+                <div className=" green-pink-gradient p-[1px] rounded-[5px] shadow-card">
+                  <div className="bg-tertiary rounded-[5px] px-2 py-1 text-gray-100 hover:bg-gray-800">
+                    <Link to={`/task/${task.id}`} state={{ task }}>
+                      Update
+                    </Link>
+                  </div>
                 </div>
-                <button>
-                  <label
-                    htmlFor="confirmation-modal"
-                    onClick={() => setDeleteDoc(task)}
-                    className="btn"
-                  >
-                    <FaTrash />
-                  </label>
-                </button>
+
+                <label
+                  htmlFor="confirmation-modal"
+                  onClick={() => setDeleteDoc(task)}
+                  className="btn rounded-full bg-gray-800 hover:text-red-600 hover:bg-gray-800"
+                >
+                  <FaTrash />
+                </label>
               </div>
             </div>
           </div>

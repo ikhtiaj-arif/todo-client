@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import TaskUpdate from "../components/TaskUpdate";
 import MainPage from "../layouts/MainPage";
 import About from "../pages/About";
+import Home from "../pages/Home";
 
 import Login from "../pages/Login";
 import Register from "../pages/Register";
@@ -15,8 +16,9 @@ const Routes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Sidebar />,
+        element: <Home />,
       },
+
       {
         path: "/about",
         element: <About />,
@@ -28,6 +30,11 @@ const Routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      // private
+      {
+        path: "/todos",
+        element: <Sidebar />,
       },
       {
         path: "/task/:id",

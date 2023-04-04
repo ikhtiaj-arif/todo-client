@@ -65,15 +65,15 @@ const AddNewTodo = () => {
   };
 
   return (
-    <div className="AddNewTodo">
-      <div className="btn">
+    <div className="green-pink-gradient p-[1px] rounded-[10px] shadow-card my-4">
+      <div className="btn text-2xl w-full text-white hover:bg-tertiary px-4">
         <button onClick={() => setShowModal(true)}>+ New Todo</button>
       </div>
 
       <Modal showModal={showModal} setShowModla={setShowModal}>
         <form
           onSubmit={handleSubmit}
-          className="w-[350px] md:w-[500px] p-5 rounded-md bg-gray-100 outline-none"
+          className="w-[400px] md:w-[500px] p-5 rounded-md bg-gray-100 outline-none"
         >
           <div className="text">
             <h3 className="font-medium text-2xl text-tertiary">

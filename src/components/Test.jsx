@@ -71,7 +71,7 @@ const Test = () => {
         <h2 className="text-white font-semibold text-xl">Pending</h2>
       </div>
       {tasks.map((task, index) => (
-        <div key={task.id + index} setDeleteDoc={task} setTodos={task}>
+        <div key={task._id + index} setDeleteDoc={task} setTodos={task}>
           <div className="green-pink-gradient my-2 p-[1px] rounded-[5px]">
             <div className="bg-tertiary  rounded-[5px]  p-4">
               <div className="flex justify-between items-center">
